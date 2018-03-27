@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="container">
+  <p>
+  <h1>Are you sure you want to delete?</h1>
+      <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Yes</button>
+      </form>
+      <a href="{% url "home:wallet" name=delete.name %}" class="btn btn-danger">No</button></a>
+      </p>
+</div>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container">
+<h1>Create Wallet</h1>
+
+<form method="post">
+    {% csrf_token %}
+    <h3>Name</h3>{{ form.name }}
+    <h3>Select Companies:</h3>
+    <h4>(At least one)</h4>
+    {{ form.companies }}
+    <button type="submit">Create</button>
+</form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+    var open1 = {{stock.11.2}}
+    var open2 = {{stock.10.2}}
+    var open3 = {{stock.9.2}}
+    var open4 = {{stock.8.2}}
+    var open5 = {{stock.7.2}}
+    var open6 = {{stock.6.2}}
+    var open7 = {{stock.5.2}}
+    var open8 = {{stock.4.2}}
+    var open9 = {{stock.3.2}}
+    var open10 = {{stock.2.2}}
+    var open11 = {{stock.1.2}}
+    var open12 = {{stock.0.2}}
+
+    var close1 = {{stock.11.3}}
+    var close2 = {{stock.10.3}}
+    var close3 = {{stock.9.3}}
+    var close4 = {{stock.8.3}}
+    var close5 = {{stock.7.3}}
+    var close6 = {{stock.6.3}}
+    var close7 = {{stock.5.3}}
+    var close8 = {{stock.4.3}}
+    var close9 = {{stock.3.3}}
+    var close10 = {{stock.2.3}}
+    var close11 = {{stock.1.3}}
+    var close12 = {{stock.0.3}}
+
+    var dia1 = "{{stock.11.1}}"
+    var dia2 = "{{stock.10.1}}"
+    var dia3 = "{{stock.9.1}}"
+    var dia4 = "{{stock.8.1}}"
+    var dia5 = "{{stock.7.1}}"
+    var dia6 = "{{stock.6.1}}"
+    var dia7 = "{{stock.5.1}}"
+    var dia8 = "{{stock.4.1}}"
+    var dia9 = "{{stock.3.1}}"
+    var dia10 = "{{stock.2.1}}"
+    var dia11 = "{{stock.1.1}}"
+    var dia12 = "{{stock.0.1}}"
+
+    var data = google.visualization.arrayToDataTable([
+      ['Day', 'Opening', 'Closing'],
+      [dia1,  open1,      close1],
+      [dia2,  open2,      close2],
+      [dia3,  open3,       close3],
+      [dia4,  open4,      close4],
+      [dia5,  open5,      close5],
+      [dia6,  open6,      close6],
+      [dia7,  open7,       close7],
+      [dia8,  open8,      close8],
+      [dia9,  open9,      close9],
+      [dia10,  open10,      close10],
+      [dia11,  open11,       close11],
+      [dia12,  open12,      close12]
+    ]);
+
+    var options = {
+      title: 'Price in the last 12 days:',
+      curveType: 'function',
+      legend: { position: 'bottom' },
+      colors: ['#73879C', '#2A3F54'],
+    };
+
+    var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+    chart.draw(data, options);
+  }
+</script>
+
+<div class="container">
+<div class="container-fluid text-center">
+  <div class="row content">
+
+
+    <div class="col-sm-8 text-left">
+      {% for description in description %}
+      <h1>{{ description.name }}</h1><h4><a href="{{ description.website }}">Website</a></h4>
+      <hr>
+      {% endfor %}
+
+      <div class="col-sm-4 text-center">
+          <h3><span class="label label-primary">Value: US$ {{stock.0.3}}</span></h3>
+      </div>
+      <div class="col-sm-4 text-center">
+          <h3><span class="label label-primary">Difference: US$ ({{dif}})</span></h3>
+      </div>
+      <div class="col-sm-4 text-center">
+        {% if per > "0" %}
+          <h3><span class="label label-success">{{per}}%<span class="glyphicon glyphicon-arrow-up"></span></span></h3>
+        {% else %}
+          <h3><span class="label label-danger">{{per}}%<span class="glyphicon glyphicon-arrow-down"></span></span></h3>
+        {% endif %}
+      </div>
+      <br>
+      <br>
+      <br>
+      <br>
+      <div id="curve_chart" style="width: 720px; height: 400px"></div>
+      <br>
+      <hr>
+
+      {% for description in description %}
+        <section class="panel">
+          <div class="x_title">
+            <h2>Description</h2>
+            <div class="clearfix"></div>
+          </div>
+          <div class="col-md-8 col-sm-8 col-xs-12">
+            <div class="panel-body">
+              <div class="project_detail">
+                <p>{{ description.description }}</p>
+              </div>
+              <br />
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="panel-body">
+              <div class="project_detail">
+                <p><h4><b>Industry</b></h4></p>
+                <p>{{ description.industry }}</p>
+                <p><h4><b>Sector</b></h4></p>
+                <p>{{ description.sector }}</p>
+                <p><h4><b>Employees</b></h4></p>
+                <p>{{ description.employees }}</p>
+                <p><h4><b>Sales</b></h4></p>
+                <p>{{ description.sales }}</p>
+              </div>
+              <br />
+            </div>
+          </div>
+        </section>
+      {% endfor %}
+    </div>
+
+
+
+
+    <div class="col-sm-4 sidenav">
+
+      <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Recommendation</h3>
+            {% if decision == "Buy" %}
+              <h2><span class="label label-success">{{decision}}</span></h2>
+            {% else %}
+              <h2><span class="label label-danger">{{decision}}</span></h2>
+            {% endif %}
+            <br>
+            <h4>Predict Price: {{ predictprices }}</h4>
+          </div>
+      </div>
+
+      <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">News</h3>
+          </div>
+
+          <ul class="list-group">
+            {% for news in news %}
+            <li class="list-group-item">
+                  <div class="project_detail">
+                    <p class="title"><a href="{{ news.link }}"> {{ news.title }} </a></p>
+                    <p> {{ news.date }} </p>
+                  </div>
+            </li>
+            {% endfor %}
+          </ul>
+      </div>
+
+  </div>
+</div>
+</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="container">
+  <h1>{{wallet.name}}</h1>
+  <div class="btn-group buffer" >
+    <a href="{% url "home:editwallet" name=wallet.name %}" class="btn btn-success" >Edit</a>
+    <a href="{% url "home:deletewallet" name=wallet.name %}" class="btn btn-danger" >Delete Wallet</a>
+  </div>
+  <br>
+  <br>
+  <div class="container">
+  <div class="row">
+    {% for companies in companies %}
+      <div class="col-sm-3">
+        <div class="panel panel-default text-center" style="height:200px">
+            <div class="panel-body">
+            <h5>{{ companies.name }}</h5>
+            {% for image in image %}
+              {% if image.company == companies.symbol %}
+                <img src="{{ image.image }}" alt="Avatar"  style="width:100px">
+              {% endif %}
+            {% endfor %}
+            <br>
+            <hr>
+            <a href="{% url "home:company" symbol=companies.symbol %}" class="btn btn-success" >See More</a></button>
+            <br>
+            </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  </div>
+</div>
+
+
+
+{% endblock %}

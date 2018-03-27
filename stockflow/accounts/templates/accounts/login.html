@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+
+<div class="jumbotron">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h1 class="display-3"><span class="glyphicon glyphicon-signal"></span> StockFlow</h1>
+        <br>
+        <p>
+        <h2>Login</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Login</button>
+        </form>
+        </p>
+      </div>
+
+      <div class="col-md-6">
+        <p>
+        <h2>
+          What is StockFlow?
+        </h2>
+        <br>
+        <h3>
+          A Web application that allows you to create multiple wallets and organize your stocks in your own way.
+          The stocks values of the most diverse companies are presented in a clear and detailed way.
+          You can view a chart with the latest stocks values, latest company news and also if it is
+          a good time to buy or sell your stock.
+        </h3>
+        </form>
+        </p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

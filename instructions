@@ -1,0 +1,40 @@
+first use virtualenv:
+
+sudo apt install virtualenv
+virtualenv .
+source bin/activate
+
+install things from requirements.txt:
+
+pip install -r requirements.txt
+
+*if there is problem in codification, do that: and install again
+sudo apt-get install build-essential libssl-dev libffi-dev python-dev
+
+now install postgresql:
+
+sudo apt-get install postgresql postgresql-contrib
+sudo apt-get install postgresql pgadmin3
+sudo -u postgres psql template1 (and then create a user and a database in this user accordingly the config on django)
+
+ALTER USER codenation2 WITH PASSWORD 'stockflow';
+CREATE DATABASE stockflow;
+
+        'NAME': 'stockflow',
+        'USER': 'codenation2',
+        'PASSWORD': 'stockflow',
+        'HOST': 'localhost',
+
+after:
+
+python manage.py migrate
+python manage.py createsuperuser
+python manage.py runserver
+
+To fill de database (create the companies first in admin-django):
+
+sudo apt-get install rabbitmq-server (need to install the rabbitmq)
+celery -A tasks worker --loglevel=info --beat
+
+sudo fuser -k 8000/tcp
+
